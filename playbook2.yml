@@ -4,7 +4,7 @@
 - name: Instal apache2
 #группа на которую производится утсановка 
   hosts: prood
-#Использование рут прав
+#Запуск команд с судо
   become: yes
 
 #задания
@@ -25,6 +25,9 @@
   - name: Enable apache and upstart
     service: name=httpd state=started enabled=yes
     when: ansible_pkg_mgr == "yum"
+
+  - name: copy Homepage
+    copy: src="./index.html" dest="/var/www/html/index.html" mode=0555
 
   - name: Enable apache and upstart
     service: name=apache2 state=started enabled=yes
