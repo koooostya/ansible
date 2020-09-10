@@ -9,13 +9,21 @@
 
 #задания
   tasks:
-  - name: install apache2
-    yum: name=apache2 state=latest
+  - name: check apt or yum
+    debug: var=ansible_pkg_mgr  
+
+  - name: install apache2 yum
+    yum : name=httpd state=latest
+    when: ansible_pkg_mgr == "yum"
+
+  - name: install apache2 apt
+    apt : name=apache2 state=latest
+    when: ansible_pkg_mgr == "apt"
 
   - name: Enable apache and upstart
     service: name=apache2 state=started enabled=yes
 
-  - name: Kak print tolko debug
+  - name : Kak print tolko debug
     debug:
       msg: hi
 
