@@ -18,25 +18,31 @@
 #использование перменных из ansible setup
   - name: check apt or yum
     debug: var=ansible_pkg_mgr  
+  
+  - block:   #====for yum====
 
-  - name: install apache2 yum
-    yum : name=httpd state=latest
-    when: ansible_pkg_mgr == "yum"
+    - name: install apache2 yum
+      yum : name=httpd state=latest
 
-  - name: install apache2 apt
-    apt : name=apache2 state=latest
+    - name: Enable apache and upstart
+      service: name=httpd state=started enabled=yes
+
+    when: ansible_pkg_mgr == "yum" 
+    
+  - block:   #====for apt====
+
+    - name: install apache2 apt
+      apt : name=apache2 state=latest
+   
+    - name: Enable apache and upstart
+      service: name=apache2 state=started enabled=yes
+   
     when: ansible_pkg_mgr == "apt"
 
-  - name: Enable apache and upstart
-    service: name=httpd state=started enabled=yes
-    when: ansible_pkg_mgr == "yum"
+
 
   - name: copy Homepage
     copy: src={{ web_src }} dest={{ web_dest }} mode=0555
-
-  - name: Enable apache and upstart
-    service: name=apache2 state=started enabled=yes
-    when: ansible_pkg_mgr == "apt"
 
   - name : Kak print tolko debug
     debug:
