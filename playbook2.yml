@@ -19,11 +19,13 @@
     debug:
       msg: hi
 
+#запись вывода команды в переменную
   - shell: pwd
     register: result
 
   - debug:
       var: result 
 
-
+#использование перменных из ansible setup
+  - debug: var=ansible_pkg_mgr
 
