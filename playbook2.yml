@@ -7,6 +7,11 @@
 #Запуск команд с судо
   become: yes
 
+#переменные
+  vars:
+    web_src : ./index.html
+    web_dest: /var/www/html
+
 #задания
   tasks:
 
@@ -27,7 +32,7 @@
     when: ansible_pkg_mgr == "yum"
 
   - name: copy Homepage
-    copy: src="./index.html" dest="/var/www/html/index.html" mode=0555
+    copy: src={{ web_src }} dest={{ web_dest }} mode=0555
 
   - name: Enable apache and upstart
     service: name=apache2 state=started enabled=yes
@@ -43,3 +48,4 @@
 
   - debug:
       var: result 
+
