@@ -1,9 +1,13 @@
 ---
 
+#Название playbook
 - name: Instal apache2
+#группа на которую производится утсановка 
   hosts: prood
+#Использование рут прав
   become: yes
 
+#задания
   tasks:
   - name: install apache2
     yum: name=apache2 state=latest
@@ -13,10 +17,13 @@
 
   - name: Kak print tolko debug
     debug:
-      msg: loh
+      msg: hi
 
   - shell: pwd
     register: result
 
   - debug:
       var: result 
+
+
+
