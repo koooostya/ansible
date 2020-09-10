@@ -9,6 +9,8 @@
 
 #задания
   tasks:
+
+#использование перменных из ansible setup
   - name: check apt or yum
     debug: var=ansible_pkg_mgr  
 
@@ -33,7 +35,3 @@
 
   - debug:
       var: result 
-
-#использование перменных из ansible setup
-  - debug: var=ansible_pkg_mgr
-
