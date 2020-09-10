@@ -1,0 +1,22 @@
+---
+
+- name: Instal apache2
+  hosts: prood
+  become: yes
+
+  tasks:
+  - name: install apache2
+    yum: name=apache2 state=latest
+
+  - name: Enable apache and upstart
+    service: name=apache2 state=started enabled=yes
+
+  - name: Kak print tolko debug
+    debug:
+      msg: loh
+
+  - shell: pwd
+    register: result
+
+  - debug:
+      var: result 
