@@ -1,0 +1,5 @@
+[test]
+ubuntu2    ansible_host=192.168.56.102 owner=kostya
+
+[prood]
+ubuntu3   ansible_host=192.168.56.106 owner=nastya
