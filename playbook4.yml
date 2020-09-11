@@ -1,0 +1,9 @@
+---
+ - name: jinja example
+   hosts: prood
+   become: yes 
+
+   tasks:
+   
+   - name    : generate index.html from index.j2
+     template: src=./index.j2 dest=/var/www/html/index.html 
