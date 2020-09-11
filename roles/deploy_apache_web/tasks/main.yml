@@ -1,0 +1,25 @@
+---
+# tasks file for deploy_apache_web
+
+- block:   #====for yum====
+
+  - name: install apache2 yum
+    yum : name=httpd state=latest
+
+  - name   : Enable apache and upstart
+    service: name=httpd state=started enabled=yes
+
+  when: ansible_pkg_mgr == "yum"
+
+- block:   #====for apt====
+
+  - name: install apache2 apt
+    apt : name=apache2 state=latest
+
+  - name   : Enable apache and upstart
+    service: name=apache2 state=started enabled=yes
+
+  when: ansible_pkg_mgr == "apt"
+
+- name    : generate index.html from index.j2
+  template: src=index.j2 dest=/var/www/html/index.html mode=666

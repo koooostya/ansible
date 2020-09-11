@@ -1,0 +1,7 @@
+---
+- name: tsk from roles
+  hosts: prood
+  become: yes
+
+  roles:
+     - deploy_apache_web
