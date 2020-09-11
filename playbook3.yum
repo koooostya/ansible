@@ -1,0 +1,14 @@
+---
+#Циклы
+- name: Loops
+  hosts: prood
+  become: yes
+
+  tasks:
+  - name: Print all
+    debug: msg="{{ item }}"
+    loop :
+         - "1"
+         - "2"
+         - "3"
+ 
