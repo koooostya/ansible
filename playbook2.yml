@@ -9,8 +9,10 @@
 
 #переменные
   vars:
-    web_src : ./index.html
-    web_dest: /var/www/html
+    web_src     : ./index.html
+    web_dest    : /var/www/html
+    folder_src  : /home/kostya/ansible/copyfolder
+    folder_dest : /home/kostya 
 
 #задания
   tasks:
@@ -40,9 +42,14 @@
     when: ansible_pkg_mgr == "apt"
 
 
+#копировать один файл
+#  - name: copy Homepage
+#    copy: src={{ web_src }} dest={{ web_dest }} mode=0555
 
-  - name: copy Homepage
-    copy: src={{ web_src }} dest={{ web_dest }} mode=0555
+#копировать директорию полностью
+  - name: copy folder 
+    copy: src={{ item }} dest={{ folder_dest }}
+    with_fileglob: "{{ folder_src }}/*.*"
 
   - name : Kak print tolko debug
     debug:
