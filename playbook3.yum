@@ -11,4 +11,16 @@
          - "1"
          - "2"
          - "3"
- 
+
+  - name    : Loop Until
+    shell   : echo -n k >> example.txt && cat example.txt
+    register: output
+#задержка (не обязательно)    
+    delay   : 2
+#максимальные попытки (по-умолчанию 3)
+    retries : 10
+    until   : output.stdout.find("kkkkk") == false
+
+  - name : print output
+    debug: var=output.stdout     
+
